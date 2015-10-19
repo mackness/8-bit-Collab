@@ -1,0 +1,28 @@
+
+* {
+	margin: 0 auto;
+	font-family: 'Press Start 2P', cursive;
+}
+
+#grid {
+	width: 700px;
+	height: 900px;
+	margin: 0 auto;
+}
+
+.title {
+	padding: 10px;
+	font-size: 17px;
+	text-align: center;
+}
+
+.cell {
+	height: 15px;
+	width: 15px;
+	float: left;
+	border: solid 1px #f1f1f1;
+}
+
+.fill {
+	background-color: #000;
+}
