@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>8bit collab</title>
+	<title>8-bit collab</title>
 	<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="style.css">
 
@@ -10,8 +10,33 @@
 	<script src="app.js"></script>
 </head>
 <body>
-<h1 class="title">8-Bit Collab</h1>
-<div id="toolbar"></div>
-<div id="grid"></div>
+<section id="info">	
+	<div class="is_constrained">
+		8-bit collab is an app that allows users to collaborate
+		on 8-bit pixel art in real time. 
+	</div>
+</section>
+<section id="container">
+	<div class="is_constrained">
+	<h1 class="title">8-Bit Collab <a href="#" class="info">i</a></h1>
+	<div id="toolbar"></div>
+	<div id="users">
+		<span id="active-users">0</span>
+	</div>
+	<div id="grid">
+		<div id="add-user">
+			<form>
+				<div class="form-row">
+					<h3>enter a username:</h3>
+				</div>
+				<div class="form-row">
+					<input type="text" />
+					<button type="submit">go</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
+</section>
 </body>
 </html>

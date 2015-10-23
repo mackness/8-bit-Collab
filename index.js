@@ -12,24 +12,48 @@ server.listen(port, function () {
 // Routing
 app.use(express.static(__dirname + '/public'));
 
-io.on('connection', function (socket) {
-  
-  // // when the client emits 'new message', this listens and executes
-  // socket.on('new message', function (data) {
-  //   // we tell the client to execute 'new message'
-  //   socket.broadcast.emit('new message', {
-  //     username: socket.username,
-  //     message: data
-  //   });
-  // });
+var usernames = {};
+var numUsers = 0;
 
-  socket.on('cell filled', function(state) {
-    socket.broadcast.emit('cell filled', function() {
-      state: state
+io.on('connection', function (socket) {
+
+  socket.on('cell changed', function(data) {
+    socket.broadcast.emit('update cell', {
+      cell: data,
+      numUser: numUsers,
+      usernames: usernames,
     });
   });
-  
 
+  var addedUser = false;
+  socket.on('add user', function (username) {
+
+    socket.username = username;
+    usernames[username] = username;
+    
+    numUsers++;
+    addedUser = true;
+    socket.emit('login', {
+      numUsers: numUsers
+    });
+    socket.broadcast.emit('user joined', {
+      username: socket.username,
+      numUsers: numUsers
+    });
+  });
+
+  socket.on('disconnect', function () {
+    if (addedUser) {
+      delete usernames[socket.username];
+      --numUsers;
+
+      socket.broadcast.emit('user left', {
+        username: socket.username,
+        numUsers: numUsers
+      });
+    }
+  });
+  
   console.log('socket connected');
 
 });
