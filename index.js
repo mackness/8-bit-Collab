@@ -5,16 +5,16 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = 8081;
-// Routing
-app.use(express.static(path.join(__dirname, 'public')));
 
+// Routing
 var usernames = {};
 var numUsers = 0;
 
 app.get('/', function(req, res) {
-  // res.sendFile(path.join(__dirname, 'public/index.html'))
-  res.send({ some: 'json' });
-})
+  res.sendFile(path.join(__dirname, 'public/index.html'))
+});
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', function (socket) {
 
