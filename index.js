@@ -7,14 +7,14 @@ var io = require('socket.io')(server);
 var port = 8081;
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 var usernames = {};
 var numUsers = 0;
+
+app.get('/', function(req, res) {
+  // res.sendFile(path.join(__dirname, 'public/index.html'))
+  res.send({ some: 'json' });
+})
 
 io.on('connection', function (socket) {
 
@@ -58,6 +58,7 @@ io.on('connection', function (socket) {
   console.log('socket connected');
 
 });
+
 
 server.listen(port, function() {
   console.log('server listening on ' + port)
