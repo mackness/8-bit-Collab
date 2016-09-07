@@ -1,16 +1,17 @@
 // Setup basic express server
 var express = require('express');
+var path = require('path');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var port = process.env.PORT || 3000;
-
-server.listen(port, function () {
-  console.log('Server listening at port %d', port);
-});
-
+var port = 8081;
 // Routing
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 var usernames = {};
 var numUsers = 0;
@@ -57,3 +58,12 @@ io.on('connection', function (socket) {
   console.log('socket connected');
 
 });
+
+server.listen(port, function() {
+  console.log('server listening on ' + port)
+});
+
+
+
+
+
